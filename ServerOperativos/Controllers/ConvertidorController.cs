@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServerOperativos.LogicaNegocio;
+using ServerOperativos.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +28,11 @@ namespace ServerOperativos.Controllers
 
         // POST api/<ConvertidorController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public decimal Post([FromBody] RequestObj value)
         {
+            Convertidor convertidor = new Convertidor();
+            var res = convertidor.Convertir(value);
+            return res;
         }
 
         // PUT api/<ConvertidorController>/5

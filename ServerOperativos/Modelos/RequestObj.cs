@@ -10,6 +10,7 @@ namespace ServerOperativos.Modelos
     {
         public int Valor { get; set; }
         public Medida Medida { get; set; }
-        public int Unidad { get; set; }
+        public int FromUnidad { get; set; }
+        public int ToUnidad { get; set; }
     }
 }

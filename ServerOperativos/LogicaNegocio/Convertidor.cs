@@ -1,4 +1,5 @@
-﻿using ServerOperativos.Modelos;
+﻿using ServerOperativos.LogicaNegocio.Fabricas;
+using ServerOperativos.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,10 @@ namespace ServerOperativos.LogicaNegocio
 {
     public class Convertidor
     {
-        public UnidadMedida Convertir(RequestObj request)
+        public decimal Convertir(RequestObj request)
         {
-            var res = new UnidadMedida();
-
-            return res;
+            var convertidor = FabricaConvertidores.GetConvertidor(request.Medida);
+            return convertidor.Convertir(request);
         }
     }
 }
