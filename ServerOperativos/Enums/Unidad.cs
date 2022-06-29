@@ -9,9 +9,9 @@ namespace ServerOperativos.Enums
     {
         Centimetro,
         Pulgada,
+        Yarda,
         Metro,
-        Yarda,        
-        Kilometro        
+        Kilometro,
     }
 
     public enum UnidadTiempo
