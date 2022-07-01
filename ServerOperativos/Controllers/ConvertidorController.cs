@@ -32,7 +32,7 @@ namespace ServerOperativos.Controllers
         {
             Convertidor convertidor = new Convertidor();
             var res = convertidor.Convertir(value);
-            return res;
+            return Decimal.Round(res,5);
         }
 
         // PUT api/<ConvertidorController>/5
