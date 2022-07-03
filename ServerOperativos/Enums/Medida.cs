@@ -10,7 +10,7 @@ namespace ServerOperativos.Enums
     {
         Longitud,
         Tiempo,
-        DatosInformacion,
+        //DatosInformacion,
         Masa,
         Temperatura
     }

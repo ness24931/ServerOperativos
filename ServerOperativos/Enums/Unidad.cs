@@ -41,9 +41,9 @@ namespace ServerOperativos.Enums
     }
     public enum UnidadTemperatura
     {
-        Celsius,
+        Kelvin,
         Fahrenheit,
-        Kelvin
+        Celsius
     }
 
 }

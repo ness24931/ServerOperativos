@@ -17,8 +17,8 @@ namespace ServerOperativos.LogicaNegocio.Fabricas
                     return new ConvertidorLongitud();
                 case Medida.Tiempo:
                     return new ConvertidorTiempo();
-                case Medida.DatosInformacion:
-                    return new ConvertidorDatosInformacion();
+                //case Medida.DatosInformacion:
+                //    return new ConvertidorDatosInformacion();
                 case Medida.Masa:
                     return new ConvertidorMasa();
                 case Medida.Temperatura:

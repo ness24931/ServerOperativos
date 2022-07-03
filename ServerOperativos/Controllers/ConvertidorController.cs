@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using ServerOperativos.Enums;
 using ServerOperativos.LogicaNegocio;
 using ServerOperativos.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ServerOperativos.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [EnableCors("AllowClient")]
+    [Route("api/[controller]")]    
+    [ApiController]    
     public class ConvertidorController : ControllerBase
     {
         // GET: api/<ConvertidorController>
@@ -21,9 +23,20 @@ namespace ServerOperativos.Controllers
 
         // GET api/<ConvertidorController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string[] Get(Medida id)
         {
-            return "value";
+            switch (id)
+            {
+                case Medida.Longitud:
+                    return Enum.GetNames(typeof(UnidadLongitud)).ToArray();
+                case Medida.Masa:
+                    return Enum.GetNames(typeof(UnidadMasa)).ToArray();
+                case Medida.Temperatura:
+                    return Enum.GetNames(typeof(UnidadTemperatura)).ToArray();
+                case Medida.Tiempo:
+                    return Enum.GetNames(typeof(UnidadTiempo)).ToArray();
+            }
+            return null;
         }
 
         // POST api/<ConvertidorController>
@@ -32,7 +45,7 @@ namespace ServerOperativos.Controllers
         {
             Convertidor convertidor = new Convertidor();
             var res = convertidor.Convertir(value);
-            return Decimal.Round(res,5);
+            return Decimal.Round(res, 5);
         }
 
         // PUT api/<ConvertidorController>/5
