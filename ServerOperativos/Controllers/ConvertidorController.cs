@@ -1,24 +1,29 @@
 ﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using ServerOperativos.Enums;
 using ServerOperativos.LogicaNegocio;
 using ServerOperativos.Modelos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServerOperativos.Controllers
 {
     [EnableCors("AllowClient")]
-    [Route("api/[controller]")]    
-    [ApiController]    
+    [Route("api/[controller]")]
+    [ApiController]
     public class ConvertidorController : ControllerBase
     {
-        // GET: api/<ConvertidorController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private int id;
+        private readonly IWebHostEnvironment _env;
+
+        public ConvertidorController(IWebHostEnvironment env)
         {
-            return new string[] { "value1", "value2" };
+            _env = env;
         }
 
         // GET api/<ConvertidorController>/5
@@ -43,21 +48,26 @@ namespace ServerOperativos.Controllers
         [HttpPost]
         public decimal Post([FromBody] RequestObj value)
         {
+            var res = Task.Run(() => ProcessRequest(value));
+            return res.Result;
+        }
+
+        private decimal ProcessRequest(RequestObj value)
+        {
             Convertidor convertidor = new Convertidor();
             var res = convertidor.Convertir(value);
+            EscribirLog(++this.id, value.FromUnidad.ToString(), value.ToUnidad.ToString());
             return Decimal.Round(res, 5);
         }
 
-        // PUT api/<ConvertidorController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        private void EscribirLog(int id, string uniFrom, string uniTo)
         {
-        }
-
-        // DELETE api/<ConvertidorController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            StreamWriter fileObj = new StreamWriter(Path.Combine(_env.ContentRootPath, "Logs", "Log.txt"), true);
+            lock (fileObj)
+            {                
+                fileObj.WriteLine($"id = {AppDomain.GetCurrentThreadId()}, fromValue = {uniFrom}, toValue = {uniTo}");
+                fileObj.Close();
+            }
         }
     }
 }

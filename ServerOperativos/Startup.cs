@@ -31,7 +31,7 @@ namespace ServerOperativos
                 options.AddPolicy(name: "AllowClient",
                     builder =>
                     {
-                        builder.WithOrigins("http://192.168.100.55:8080", "http://localhost:35777")
+                        builder.WithOrigins("http://127.0.0.1:8080", "http://localhost:35777")
                                             .AllowAnyHeader()
                                             .AllowAnyMethod();
                     });

@@ -9,8 +9,8 @@ namespace ServerOperativos.Modelos.Tiempo
     {
         public decimal ValSegundo => 60m;
         public decimal ValMinuto => decimal.One;
-        public decimal ValHora => 1m / 60m;
-        public decimal ValDia => 1m / 1440m;
-        public decimal ValMes => 1m / 43800m;
+        public decimal ValHora => 60m;
+        public decimal ValDia => 1440m;
+        public decimal ValMes => 43800m;
     }
 }

@@ -22,7 +22,11 @@ namespace ServerOperativos.LogicaNegocio.Convertidores
             decimal? valorU = GetValorUnidad(toUnidad, modelo);
             if (valorU.HasValue)
             {
-                return valorU.Value;
+                if (fromUnidad < toUnidad)
+                {
+                    return valor / valorU.Value;
+                }
+                return valor * valorU.Value;
             }
             return decimal.Zero;
         }
